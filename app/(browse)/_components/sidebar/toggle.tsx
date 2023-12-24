@@ -4,9 +4,10 @@ import { useSidebar } from '@/store/use-sidebar';
 import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react';
 import React, { useMemo } from 'react';
 import { Hint } from '@/components/hint';
+import { Skeleton } from '@/components/ui/skeleton';
 type Props = {};
 
-function Toggle({}: Props) {
+export function Toggle({}: Props) {
   const { collapsed, onCollapse, onExpand } = useSidebar();
 
   const label = useMemo(() => (collapsed ? 'Expand' : 'Collapse'), [collapsed]);
@@ -36,4 +37,11 @@ function Toggle({}: Props) {
   );
 }
 
-export default Toggle;
+export const ToggleSkeleton = () => {
+  return (
+    <div className='p-3 pl-6 mb-2 hidden lg:flex items-center justify-between w-full'>
+      <Skeleton className='h-7 w-[100px]' />
+      <Skeleton className='h-7 w-8' />
+    </div>
+  );
+};
