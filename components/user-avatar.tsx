@@ -29,7 +29,7 @@ export const UserAvatar = ({ username, imageUrl, isLive, showBadge, size }: User
     <div className='relative'>
       <Avatar
         className={cn(
-          isLive && 'ring-2 ring-rose-500 border border-background ',
+          isLive && 'ring-2 ring-purple-500 border border-background ',
           avatarSizes({ size }),
         )}
       >
