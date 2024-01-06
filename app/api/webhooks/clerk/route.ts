@@ -29,11 +29,11 @@ export async function POST(req: Request) {
 
   // Create a new Svix instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
-  let evt: WebhookEvent;
+  let event: WebhookEvent;
 
   // Verify the payload with the headers
   try {
-    evt = wh.verify(body, {
+    event = wh.verify(body, {
       'svix-id': svix_id,
       'svix-timestamp': svix_timestamp,
       'svix-signature': svix_signature,
@@ -45,14 +45,19 @@ export async function POST(req: Request) {
     });
   }
 
-  const eventType = evt.type;
+  const eventType = event.type;
 
   if (eventType === 'user.created') {
     await db.user.create({
       data: {
-        externalUserId: evt.data.id,
-        username: evt.data.username!,
-        imageUrl: evt.data.image_url,
+        externalUserId: event.data.id,
+        username: event.data.username!,
+        imageUrl: event.data.image_url,
+        stream: {
+          create: {
+            name: `${event.data.username!}'s stream`,
+          },
+        },
       },
     });
   }
@@ -60,7 +65,7 @@ export async function POST(req: Request) {
   if (eventType === 'user.deleted') {
     const currentUser = await db.user.findUnique({
       where: {
-        externalUserId: evt.data.id,
+        externalUserId: event.data.id,
       },
     });
 
@@ -70,7 +75,7 @@ export async function POST(req: Request) {
 
     await db.user.delete({
       where: {
-        externalUserId: evt.data.id,
+        externalUserId: event.data.id,
       },
     });
   }
@@ -78,7 +83,7 @@ export async function POST(req: Request) {
   if (eventType === 'user.updated') {
     const currentUser = await db.user.findUnique({
       where: {
-        externalUserId: evt.data.id,
+        externalUserId: event.data.id,
       },
     });
 
@@ -88,11 +93,11 @@ export async function POST(req: Request) {
 
     await db.user.update({
       where: {
-        externalUserId: evt.data.id,
+        externalUserId: event.data.id,
       },
       data: {
-        username: evt.data.username!,
-        imageUrl: evt.data.image_url,
+        username: event.data.username!,
+        imageUrl: event.data.image_url,
       },
     });
   }
