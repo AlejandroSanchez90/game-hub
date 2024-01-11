@@ -29,14 +29,11 @@ export const ToggleCard = ({ label, value = false, field }: ToggleCardProps) => 
     });
   };
   return (
-    <div
-      className='rounded-xl bg-muted p-6 cursor-pointer hover:opacity-80 transition-opacity'
-      onClick={onChange}
-    >
+    <div className='rounded-xl bg-muted p-6  '>
       <div className='flex items-center justify-between'>
         <p className='font-semibold shrink-0'>{label}</p>
         <div className='space-y-2'>
-          <Switch disabled={isPending} checked={value}>
+          <Switch disabled={isPending} checked={value} onCheckedChange={onChange}>
             {value ? 'On' : 'Off'}
           </Switch>
         </div>
