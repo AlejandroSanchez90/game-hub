@@ -18,6 +18,10 @@ export async function POST(req: Request) {
 
     const event = receiver.receive(body, authorization);
 
+    if (!event || !event.event) {
+      return new Response('Invalid event data', { status: 400 });
+    }
+
     if (event.event === 'ingress_started') {
       await db.stream.update({
         where: {
@@ -39,9 +43,11 @@ export async function POST(req: Request) {
         },
       });
     }
+    console.log('OKKK');
 
-    return new Response('successful', { status: 200 });
+    return new Response(`${event.event}`, { status: 200 });
   } catch (error: any) {
-    error.message;
+    console.log('ERROR_LIVEKIT_WEBHOOK:', error.message);
+    return new Response(`Internal server error`, { status: 500 });
   }
 }
