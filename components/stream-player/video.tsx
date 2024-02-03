@@ -8,6 +8,7 @@ import { OfflineHost } from './offline-host';
 import { hostname } from 'os';
 import { LoadingVideo } from './loading-video';
 import { LiveHost } from './live-host';
+import { Skeleton } from '../ui/skeleton';
 type Props = {
   hostName: string;
   hostIdentity: string;
@@ -32,3 +33,11 @@ export function Video({ hostIdentity, hostName }: Props) {
   }
   return <div className='aspect-video border-b group relative'>{content}</div>;
 }
+
+export const VideoSkeleton = () => {
+  return (
+    <div className='aspect-video border-x border-background'>
+      <Skeleton className='h-full w-full rounded-none' />
+    </div>
+  );
+};
