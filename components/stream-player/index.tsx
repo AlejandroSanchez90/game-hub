@@ -10,6 +10,7 @@ import { Chat } from './chat';
 import { ChatToggle } from './chat-toggle';
 import { ChatSkeleton } from './chat-message';
 import { Header, HeaderSkeleton } from './header';
+import { InfoCard } from './info-card';
 type Props = {
   user: User & { stream: Stream | null };
   stream: Stream;
@@ -47,6 +48,12 @@ export function StreamPlayer({ user, stream, isFollowing }: Props) {
             imageUrl={user.imageUrl}
             isFollowing={isFollowing}
             name={stream.name}
+          />
+          <InfoCard
+            hostIdentity={user.id}
+            viewerIdentity={identity}
+            name={stream.name}
+            thumbnailUrl={stream.thumbnailUrl}
           />
         </div>
 
