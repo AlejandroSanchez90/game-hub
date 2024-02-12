@@ -1,5 +1,5 @@
 'use client';
-
+import { createContext } from 'react';
 import { useViewerToken } from '@/hooks/use-viewer-token';
 import { User, Stream } from '@prisma/client';
 import { LiveKitRoom } from '@livekit/components-react';
@@ -11,8 +11,9 @@ import { ChatToggle } from './chat-toggle';
 import { ChatSkeleton } from './chat-message';
 import { Header, HeaderSkeleton } from './header';
 import { InfoCard } from './info-card';
+import AboutCard from './about-card';
 type Props = {
-  user: User & { stream: Stream | null };
+  user: User & { stream: Stream | null; _count: { followedBy: number } };
   stream: Stream;
   isFollowing: boolean;
 };
@@ -54,6 +55,13 @@ export function StreamPlayer({ user, stream, isFollowing }: Props) {
             viewerIdentity={identity}
             name={stream.name}
             thumbnailUrl={stream.thumbnailUrl}
+          />
+          <AboutCard
+            hostName={user.username}
+            hostIdentity={user.id}
+            viewerIdentity={identity}
+            bio={user.bio}
+            followedByCount={user._count.followedBy}
           />
         </div>
 
