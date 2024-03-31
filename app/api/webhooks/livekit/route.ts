@@ -43,7 +43,6 @@ export async function POST(req: Request) {
         },
       });
     }
-    console.log('OKKK');
 
     return new Response(`${event.event}`, { status: 200 });
   } catch (error: any) {

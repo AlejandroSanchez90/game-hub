@@ -22,7 +22,6 @@ export function Video({ hostIdentity, hostName }: Props) {
   });
 
   let content;
-  console.log({ participant, connectionState, tracks, hostIdentity });
 
   if (!participant && connectionState === ConnectionState.Connected) {
     content = <OfflineHost username={hostName} />;

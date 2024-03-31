@@ -15,7 +15,6 @@ interface ToggleCardProps {
 
 export const ToggleCard = ({ label, value = false, field }: ToggleCardProps) => {
   const [isPending, startTransition] = useTransition();
-  console.log(field, { [field]: false });
 
   const onChange = () => {
     startTransition(() => {

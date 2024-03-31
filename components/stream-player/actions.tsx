@@ -55,7 +55,7 @@ export function Actions({ hostIdentity, isFollowing, isHost }: Props) {
   return (
     <Button
       disabled={isPending || isHost}
-      onClick={() => {}}
+      onClick={toggleFollow}
       variant={'primary'}
       size={'sm'}
       className='w-full lg:w-auto'

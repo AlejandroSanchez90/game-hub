@@ -12,6 +12,8 @@ import { ChatSkeleton } from './chat-message';
 import { Header, HeaderSkeleton } from './header';
 import { InfoCard } from './info-card';
 import AboutCard from './about-card';
+import styles from './test.module.scss';
+
 type Props = {
   user: User & { stream: Stream | null; _count: { followedBy: number } };
   stream: Stream;
