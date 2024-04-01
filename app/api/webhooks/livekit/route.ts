@@ -21,6 +21,7 @@ export async function POST(req: Request) {
     if (!event || !event.event) {
       return new Response('Invalid event data', { status: 400 });
     }
+    console.log('LIVEKIT_WEBHOOK:', event.event);
 
     if (event.event === 'ingress_started') {
       await db.stream.update({
