@@ -14,13 +14,32 @@ import { InfoCard } from './info-card';
 import AboutCard from './about-card';
 import styles from './test.module.scss';
 
-type Props = {
-  user: User & { stream: Stream | null; _count: { followedBy: number } };
-  stream: Stream;
-  isFollowing: boolean;
-};
+interface CustomStream {
+  id: string;
+  isChatEnabled: boolean;
+  isChatDelayed: boolean;
+  isChatFollowersOnly: boolean;
+  isLive: boolean;
+  thumbnailUrl: string | null;
+  name: string;
+}
 
-export function StreamPlayer({ user, stream, isFollowing }: Props) {
+interface CustomUser {
+  id: string;
+  username: string;
+  bio: string | null;
+  stream: CustomStream | null;
+  imageUrl: string;
+  _count: { followedBy: number };
+}
+
+interface StreamPlayerProps {
+  user: CustomUser;
+  stream: CustomStream;
+  isFollowing: boolean;
+}
+
+export function StreamPlayer({ user, stream, isFollowing }: StreamPlayerProps) {
   const { name, token, identity } = useViewerToken(user.id);
   const { collapsed } = useChatSidebar();
 
